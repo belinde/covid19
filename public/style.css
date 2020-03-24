@@ -1,0 +1,15 @@
+html, body, #root {
+    margin: 0;
+    padding: 0;
+}
+
+.loader {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding-top: 120px;
+    background-color: black;
+    opacity: 0.3;
+    z-index: 10000;
+}
