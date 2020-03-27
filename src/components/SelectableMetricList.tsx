@@ -28,10 +28,11 @@ const MetricItem = ({
                     onChange={handleChange}
                 />
                 <strong>{metric.name}</strong>
-
-                <small>
-                    <em>{metric.description}</em>
-                </small>
+                <div>
+                    <small>
+                        <em>{metric.description}</em>
+                    </small>
+                </div>
             </div>
         </label>
     );

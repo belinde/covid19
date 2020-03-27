@@ -1,6 +1,6 @@
 import { Region, RegionCode } from '../types';
 import {allRegions} from '../resources/regions';
-import React, { useCallback, ChangeEvent } from 'react';
+import React, { useCallback } from 'react';
 
 const RegionItem = ({
     region,
@@ -12,7 +12,7 @@ const RegionItem = ({
     toggler: (code: RegionCode) => void;
 }) => {
     const handleChange = useCallback(
-        (event: ChangeEvent<HTMLInputElement>) => toggler(parseInt(event.target.value) as RegionCode),
+        (event) => toggler(Number(event.target.value) as RegionCode),
         [toggler]
     );
 

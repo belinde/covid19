@@ -4,52 +4,52 @@ export const allMetrics: Metric[] = [
     {
         code: MetricCode.totalCases,
         name: 'Total cases',
-        description: '',
+        description: 'Total amount of positive cases.',
     },
     {
         code: MetricCode.swabs,
         name: 'Total swabs',
-        description: '',
+        description: 'Tests performed.',
     },
     {
         code: MetricCode.deceased,
         name: 'Deceased',
-        description: '',
+        description: 'Deaths.',
     },
     {
         code: MetricCode.hospitalizedWithSymptoms,
         name: 'Hospitalized with symptoms',
-        description: '',
+        description: 'Hospitalised patients with symptoms.',
     },
     {
         code: MetricCode.intensiveTherapy,
         name: 'Intensive therapy',
-        description: '',
+        description: 'Intensive Care.',
     },
     {
         code: MetricCode.totalHospitalized,
         name: 'Total hospitalized',
-        description: '',
+        description: 'Total hospitalised patients.',
     },
     {
         code: MetricCode.homeInsulation,
         name: 'Home insulation',
-        description: '',
+        description: 'Home confinement.',
     },
     {
         code: MetricCode.totalCurrentlyPositive,
         name: 'Total currently positive',
-        description: '',
+        description: 'Total amount of current positive cases (Hospitalised patients + Home confinement).',
     },
     {
         code: MetricCode.newCurrentlyPositive,
         name: 'New currently positive',
-        description: '',
+        description: 'Amount of new current positive cases (Actual total amount of current positive cases - total amount of current positive cases of the previous day).',
     },
     {
         code: MetricCode.dischargedHealed,
         name: 'Discharged healed',
-        description: '',
+        description: 'Recovered',
     },
 ];
 

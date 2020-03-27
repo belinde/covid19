@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { DpcRegionDayData, MetricCode, RegionCode } from '../types';
-import { regionsNameMap } from '../resources/regions';
-import { metricsNameMap } from '../resources/metrics';
-
-type MetricsValues = Record<MetricCode, number>;
-type RegionsValues = Record<RegionCode, MetricsValues>;
-type FilteredData = Record<string, RegionsValues>;
+import React, { useState, useEffect } from 'react';
+import { MetricCode, RegionCode, DpcRegionDayData } from '../../../types';
+import { metricsNameMap } from '../../../resources/metrics';
+import { RegionsValues, MetricsValues, FilteredData } from '../types';
+import { TableCell } from './TableCell';
 
 function emptyDay(regions: RegionCode[], metrics: MetricCode[]): RegionsValues {
     let day = {} as RegionsValues;
@@ -31,36 +28,7 @@ const getDpcCleaner = (regions: RegionCode[], metrics: MetricCode[]) => {
     };
 };
 
-export const ComparativeTable = ({
-    metrics,
-    regions,
-}: {
-    metrics: MetricCode[];
-    regions: RegionCode[];
-}) => {
-    return (
-        <table className="table">
-            <TableHeader regions={regions} />
-            <TableBody regions={regions} metrics={metrics} />
-        </table>
-    );
-};
-
-const TableHeader = ({ regions }: { regions: RegionCode[] }) => {
-    return (
-        <thead>
-            <tr>
-                <th>Day</th>
-                {regions.map(region => (
-                    <th key={region}>{regionsNameMap[region]}</th>
-                ))}
-                <th>Metrics</th>
-            </tr>
-        </thead>
-    );
-};
-
-const TableBody = ({
+export const TableBody = ({
     regions,
     metrics,
 }: {
@@ -70,7 +38,8 @@ const TableBody = ({
     const [roughData, setRoughData] = useState<DpcRegionDayData[]>([]);
 
     useEffect(() => {
-        const source = 'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json';
+        const source =
+            'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json';
         fetch(source)
             .then(response => response.json())
             .then((data: DpcRegionDayData[]) => setRoughData(data));
@@ -105,25 +74,4 @@ const TableBody = ({
             );
         });
     return <tbody>{content}</tbody>;
-};
-
-const TableCell = ({
-    region,
-    metrics,
-    data,
-}: {
-    region: RegionCode;
-    metrics: MetricCode[];
-    data: RegionsValues;
-}) => {
-    return (
-        <td key={region}>
-            {metrics.map(metric => {
-                if (typeof data[region] === 'undefined') {
-                    return <div key={metric}>LA MALORA!</div>;
-                }
-                return <div key={metric}>{data[region][metric].toLocaleString()}</div>;
-            })}
-        </td>
-    );
 };

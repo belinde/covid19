@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { RegionCode, MetricCode } from './types';
 import { SelectableRegionList } from './components/SelectableRegionList';
-import { ComparativeTable } from './components/ComparativeTable';
+import ComparativeTable from './components/ComparativeTable';
 
 import {} from './resources/metrics';
 import { SelectableMetricList } from './components/SelectableMetricList';
