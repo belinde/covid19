@@ -1,10 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { RegionCode, MetricCode } from './types';
 import { SelectableRegionList } from './components/SelectableRegionList';
-import ComparativeTable from './components/ComparativeTable';
-
-import {} from './resources/metrics';
 import { SelectableMetricList } from './components/SelectableMetricList';
+import { DataDisplayChooser } from './components/DataDisplayChooser';
 
 const App = function() {
     const [selectedMetrics, setSelectedMetrics] = useState<MetricCode[]>([]);
@@ -37,7 +35,7 @@ const App = function() {
             <div className="covid19it m-3">
                 <h1 className="mb-3">COVID-19 status and history in Italy</h1>
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-2">
                         <SelectableRegionList
                             selected={selectedRegions}
                             toggler={toggleRegion}
@@ -49,8 +47,8 @@ const App = function() {
                             toggler={toggleMetric}
                         />
                     </div>
-                    <div className="col-7">
-                        <ComparativeTable
+                    <div className="col-8">
+                        <DataDisplayChooser
                             metrics={selectedMetrics}
                             regions={selectedRegions}
                         />

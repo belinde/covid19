@@ -1,5 +1,5 @@
 import { Region, RegionCode } from '../types';
-import {allRegions} from '../resources/regions';
+import { allRegions } from '../resources/regions';
 import React, { useCallback } from 'react';
 
 const RegionItem = ({
@@ -12,7 +12,7 @@ const RegionItem = ({
     toggler: (code: RegionCode) => void;
 }) => {
     const handleChange = useCallback(
-        (event) => toggler(Number(event.target.value) as RegionCode),
+        event => toggler(Number(event.target.value) as RegionCode),
         [toggler]
     );
 
@@ -27,22 +27,15 @@ const RegionItem = ({
                     onChange={handleChange}
                 />
                 <strong>{region.name}</strong>
-                <div className="text-small row">
-                    <div className="col-6">
-                        <small>
-                            <em>
-                                Population {region.population.toLocaleString()}
-                            </em>
-                        </small>
-                    </div>
-                    <div className="col-6">
-                        <small>
-                            <em>
-                                Area {region.area.toLocaleString()} Km
-                                <sup>2</sup>
-                            </em>
-                        </small>
-                    </div>
+                <div className={checked ? '' : 'd-none'}>
+                    <small>
+                        <em>Population {region.population.toLocaleString()}</em>
+                        <br />
+                        <em>
+                            Area {region.area.toLocaleString()} Km
+                            <sup>2</sup>
+                        </em>
+                    </small>
                 </div>
             </div>
         </label>

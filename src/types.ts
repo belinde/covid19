@@ -55,4 +55,5 @@ export interface Metric {
     code: MetricCode;
     name: string;
     description: string;
+    composedBy: Metric[];
 }
