@@ -11,7 +11,7 @@ const ComparativeTable = ({
     regions: RegionCode[];
 }) => {
     return (
-        <table className="table">
+        <table className="table table-hover table-sm">
             <TableHeader regions={regions} />
             <TableBody regions={regions} metrics={metrics} />
         </table>

@@ -6,11 +6,11 @@ export const TableHeader = ({ regions }: { regions: RegionCode[] }) => {
     return (
         <thead>
             <tr>
-                <th>Day</th>
+                <th className="text-left">Day</th>
                 {regions.map(region => (
-                    <th key={region}>{regionsNameMap[region]}</th>
+                    <th key={region} className="text-right">{regionsNameMap[region]}</th>
                 ))}
-                <th>Metrics</th>
+                <th className="text-right">Metrics</th>
             </tr>
         </thead>
     );

@@ -56,6 +56,12 @@ export const allMetrics: Metric[] = [
         composedBy: []
     },
     {
+        code: MetricCode.newPositive,
+        name: 'New positive',
+        description: 'Amount of new positive cases (total amount of positive cases, minus the number of total positive cases of the previous day).',
+        composedBy: []
+    },
+    {
         code: MetricCode.dischargedHealed,
         name: 'Discharged healed',
         description: 'Cumulative amount of patients fully recovered',

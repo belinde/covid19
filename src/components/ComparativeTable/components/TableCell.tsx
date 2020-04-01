@@ -1,6 +1,5 @@
 import React from 'react';
-import { MetricCode, RegionCode } from '../../../types';
-import { RegionsValues } from '../types';
+import { MetricCode, RegionCode, RegionsValues } from '../../../types';
 
 export const TableCell = ({
     region,
@@ -14,7 +13,7 @@ export const TableCell = ({
     return (
         <td key={region}>
             {metrics.map(metric => (
-                <div key={metric}>{data[region][metric].toLocaleString()}</div>
+                <div key={metric} className="text-right">{data[region][metric].toLocaleString()}</div>
             ))}
         </td>
     );

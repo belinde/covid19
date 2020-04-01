@@ -27,13 +27,13 @@ export const allRegions: Region[] = [
     },
     {
         code: 8,
-        name: 'Emilia-Romagna',
+        name: 'Emilia Romagna',
         population: 4459477,
         area: 22452.78,
     },
     {
         code: 6,
-        name: 'Friuli-Venezia Giulia',
+        name: 'Friuli Venezia Giulia',
         population: 1215220,
         area: 7924.36,
     },

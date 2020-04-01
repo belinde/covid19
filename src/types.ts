@@ -3,8 +3,9 @@ export enum MetricCode {
     intensiveTherapy = 'terapia_intensiva',
     totalHospitalized = 'totale_ospedalizzati',
     homeInsulation = 'isolamento_domiciliare',
-    totalCurrentlyPositive = 'totale_attualmente_positivi',
-    newCurrentlyPositive = 'nuovi_attualmente_positivi',
+    totalCurrentlyPositive = 'totale_positivi',
+    newCurrentlyPositive = 'variazione_totale_positivi',
+    newPositive= 'nuovi_positivi',
     dischargedHealed = 'dimessi_guariti',
     deceased = 'deceduti',
     totalCases = 'totale_casi',
@@ -57,3 +58,7 @@ export interface Metric {
     description: string;
     composedBy: Metric[];
 }
+
+export type MetricsValues = Record<MetricCode, number>;
+export type RegionsValues = Record<RegionCode, MetricsValues>;
+export type FilteredData = Record<string, RegionsValues>;
