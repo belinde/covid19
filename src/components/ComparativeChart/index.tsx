@@ -142,6 +142,13 @@ const ComparativeChart = ({
                             type: 'time',
                         },
                     ],
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                            },
+                        },
+                    ],
                 },
             },
             data: {
