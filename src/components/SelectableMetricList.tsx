@@ -18,22 +18,15 @@ const MetricItem = ({
     );
 
     return (
-        <label className="list-group-item list-group-item-action p-2 mb-0">
-            <div className="form-check">
-                <input
-                    type="checkbox"
-                    value={metric.code}
-                    className="form-check-input"
-                    checked={checked}
-                    onChange={handleChange}
-                />
-                <strong>{metric.name}</strong>
-                <div>
-                    <small>
-                        <em>{metric.description}</em>
-                    </small>
-                </div>
-            </div>
+        <label className="form-check dropdown-item mb-0">
+            <input
+                type="checkbox"
+                value={metric.code}
+                className="form-check-input"
+                checked={checked}
+                onChange={handleChange}
+            />
+            <span className="form-check-label">{metric.name}</span>
         </label>
     );
 };
@@ -46,15 +39,29 @@ export const SelectableMetricList = function({
     toggler: (code: MetricCode) => void;
 }) {
     return (
-        <div className="SelectableMetricList list-group">
-            {allMetrics.map(metric => (
-                <MetricItem
-                    metric={metric}
-                    checked={selected.includes(metric.code)}
-                    toggler={toggler}
-                    key={metric.code}
-                />
-            ))}
-        </div>
+        <li className="nav-item dropdown">
+            <label
+                className="nav-link dropdown-toggle"
+                id="regionDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
+                Metrics
+            </label>
+            <div className="dropdown-menu" aria-labelledby="regionDropdown">
+                <div className="SelectableRegionList list-group">
+                    {allMetrics.map(metric => (
+                        <MetricItem
+                            metric={metric}
+                            checked={selected.includes(metric.code)}
+                            toggler={toggler}
+                            key={metric.code}
+                        />
+                    ))}
+                </div>
+            </div>
+        </li>
     );
 };

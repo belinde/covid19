@@ -1,50 +1,33 @@
 import React, { useEffect } from 'react';
-import { MetricCode, RegionCode, FilteredData } from '../../types';
-import { metricsNameMap } from '../../resources/metrics';
-import { regionsNameMap } from '../../resources/regions';
+import { MetricCode, RegionCode, FilteredData } from '../types';
+import { metricsNameMap } from '../resources/metrics';
+import { regionsNameMap } from '../resources/regions';
 import Chart, { ChartDataSets, ChartPoint, PointStyle } from 'chart.js';
-import { useDpcData } from '../../hooks/useDpcData';
+import { useDpcData } from '../hooks/useDpcData';
 
-interface Permutation {
-    metric: MetricCode;
-    region: RegionCode;
-    label: string;
-}
-
-interface ColorComponent {
+const colors: {
     r: number;
     g: number;
     b: number;
-}
-
-const colors: ColorComponent[] = [
-    { r: 240, g: 163, b: 255 },
-    { r: 0, g: 117, b: 220 },
-    { r: 153, g: 63, b: 0 },
-    { r: 76, g: 0, b: 92 },
-    { r: 25, g: 25, b: 25 },
-    { r: 0, g: 92, b: 49 },
-    { r: 43, g: 206, b: 72 },
-    { r: 255, g: 204, b: 153 },
-    { r: 128, g: 128, b: 128 },
-    { r: 148, g: 255, b: 181 },
-    { r: 143, g: 124, b: 0 },
-    { r: 157, g: 204, b: 0 },
-    { r: 194, g: 0, b: 136 },
-    { r: 0, g: 51, b: 128 },
-    { r: 255, g: 164, b: 5 },
-    { r: 255, g: 168, b: 187 },
-    { r: 66, g: 102, b: 0 },
-    { r: 255, g: 0, b: 16 },
-    { r: 94, g: 241, b: 242 },
-    { r: 0, g: 153, b: 143 },
-    { r: 224, g: 255, b: 102 },
-    { r: 116, g: 10, b: 255 },
-    { r: 153, g: 0, b: 0 },
-    { r: 255, g: 255, b: 128 },
-    { r: 255, g: 255, b: 0 },
-    { r: 255, g: 80, b: 5 },
+}[] = [
+    { r: 150, g: 0, b: 0 },
+    { r: 0, g: 150, b: 0 },
+    { r: 0, g: 0, b: 150 },
+    { r: 150, g: 150, b: 0 },
+    { r: 150, g: 0, b: 150 },
+    { r: 0, g: 150, b: 150 },
+    { r: 250, g: 0, b: 0 },
+    { r: 0, g: 250, b: 0 },
+    { r: 0, g: 0, b: 250 },
+    { r: 250, g: 250, b: 0 },
+    { r: 250, g: 0, b: 250 },
+    { r: 0, g: 250, b: 250 }
 ];
+
+const makeColor = (idx: number): string => {
+    const col = colors[idx % colors.length];
+    return `rgb(${col.r},${col.g},${col.b})`;
+};
 
 let points = {} as Record<MetricCode, PointStyle>;
 points[MetricCode.hospitalizedWithSymptoms] = 'rect';
@@ -59,22 +42,22 @@ points[MetricCode.deceased] = 'cross';
 points[MetricCode.totalCases] = 'rectRounded';
 points[MetricCode.swabs] = 'line';
 
-const makeColor = (idx: number): string => {
-    if (typeof colors[idx] === 'undefined') {
-        return 'rgb(0,0,0)';
-    }
-    const col = colors[idx];
-    return `rgb(${col.r},${col.g},${col.b})`;
-};
-
 const makePointStyle = (idx: MetricCode): PointStyle => {
     return typeof points[idx] === 'undefined' ? 'circle' : points[idx];
 };
+
+interface Permutation {
+    metric: MetricCode;
+    region: RegionCode;
+    label: string;
+    sequence: number;
+}
 
 const makePermutations = (
     metrics: MetricCode[],
     regions: RegionCode[]
 ): Permutation[] => {
+    let seq = 0;
     return regions.reduce((acc, region) => {
         return acc.concat(
             metrics.map(metric => {
@@ -82,6 +65,7 @@ const makePermutations = (
                     metric: metric,
                     region: region,
                     label: `${regionsNameMap[region]}, ${metricsNameMap[metric]}`,
+                    sequence: seq++,
                 };
             })
         );
@@ -93,13 +77,11 @@ const datasetMapper = (
     metrics: MetricCode[],
     regions: RegionCode[]
 ): ChartDataSets[] => {
-    const permutations = makePermutations(metrics, regions);
-
-    return permutations.map(perm => {
+    return makePermutations(metrics, regions).map(perm => {
         return {
             label: perm.label,
             fill: false,
-            borderColor: makeColor(perm.region),
+            borderColor: makeColor(perm.sequence),
             radius: 5,
             pointBorderWidth: 3,
             pointStyle: makePointStyle(perm.metric),
@@ -132,6 +114,8 @@ const ComparativeChart = ({
             options: {
                 maintainAspectRatio: false,
                 legend: {
+                    align: 'start',
+                    position: 'left',
                     labels: {
                         usePointStyle: true,
                     },
