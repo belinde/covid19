@@ -59,13 +59,14 @@ const makePermutations = (
 ): Permutation[] => {
     let seq = 0;
     return regions.reduce((acc, region) => {
+        seq++;
         return acc.concat(
             metrics.map(metric => {
                 return {
                     metric: metric,
                     region: region,
                     label: `${regionsNameMap[region]}, ${metricsNameMap[metric]}`,
-                    sequence: seq++,
+                    sequence: seq,
                 };
             })
         );
